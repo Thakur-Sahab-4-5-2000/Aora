@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
-import Icons from "../../constants/icons";
 import { View, Text, Image } from "react-native";
+import { tabsConfig } from "../../constants/utils";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
@@ -20,13 +20,6 @@ const TabIcon = ({ icon, color, name, focused }) => {
     </View>
   );
 };
-
-const tabsConfig = [
-  { name: "home", title: "Home", icon: Icons?.home },
-  { name: "bookmark", title: "Bookmark", icon: Icons?.bookmark },
-  { name: "create", title: "Create", icon: Icons?.plus },
-  { name: "profile", title: "Profile", icon: Icons?.profile },
-];
 
 const TabsLayout = () => {
   return (
