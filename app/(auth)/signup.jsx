@@ -3,9 +3,12 @@ import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 
+//Components & Constants
 import { images } from "../../constants";
 import CustomButton from "../../components/CusttomButton";
 import FormField from "../../components/FormField";
+import { createUser } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
@@ -14,18 +17,18 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+  const {setUser,setIsLoggedIn} = useGlobalContext();
 
   const submit = async () => {
     if (form.username === "" || form.email === "" || form.password === "") {
       Alert.alert("Error", "Please fill in all fields");
+      return;
     }
-
     setSubmitting(true);
     try {
       const result = await createUser(form.email, form.password, form.username);
       setUser(result);
-      setIsLogged(true);
-
+      setIsLoggedIn(true);
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
